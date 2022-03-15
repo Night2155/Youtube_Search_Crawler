@@ -1,9 +1,4 @@
-from ast import Num
-from importlib.resources import path
-from pprint import pprint
-from telnetlib import SE
-from matplotlib.pyplot import text
-import youtube_dl
+#import youtube_dl
 import requests
 import re
 from bs4 import BeautifulSoup
@@ -68,4 +63,4 @@ if __name__ == '__main__':
     Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword)  # 抓取搜尋頁面資料
     Write_Video_Info(Result, int(Video_Num), SearchKeyword)  # 寫入txt檔
 
-    Download_video(Result, Video_Num)
+    #Download_video(Result, Video_Num)
