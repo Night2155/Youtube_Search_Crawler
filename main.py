@@ -64,7 +64,7 @@ if __name__ == '__main__':
     print("請輸入轉檔類型 : ")
     Video_Type = input()  # 檔案類型
 
-    YT_Data_API = 'AIzaSyAu5spE0yqJOO4fyUcM6MEwWzS2mbazlSA'  # Youtube_Data_API
+    YT_Data_API = ' '  # 你的 Youtube_Data_API
     SearchVideo_Path = ('https://www.youtube.com/results?search_query=' + SearchKeyword)  # 搜尋頁面連結
 
     Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword)  # 抓取搜尋頁面資料
