@@ -7,7 +7,7 @@ import yt_dlp
 
 
 def Download_video(Result, Video_Num, Video_Type):
-    path = 'F:\\Video_Mp3\\'  # 存放檔案路徑
+    path = 'E:\\Video_Mp3\\KK音標\\MP4\\'  # 存放檔案路徑
     for i in range(Video_Num):
         youtube_url = "https://www.youtube.com/watch?v=" + Result["Video_ID (" + str(i + 1) + ")"] + "&ab_channel=" + \
                       Result["Channel_ID (" + str(i + 1) + ")"]
@@ -21,7 +21,7 @@ def Download_video(Result, Video_Num, Video_Type):
     return 0
 
 
-def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword):  # 搜尋頁面的影片標題、影片ID、頻道ID
+def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜尋頁面的影片標題、影片ID、頻道ID
     Search_path = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + SearchKeyword + \
                   "&key=" + YT_Data_API+ "&type=video&maxResults=" + str(Video_Num)
 
@@ -29,7 +29,7 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword):  # 搜尋頁面的�
     res = requests.get(url=Search_path)
     data_json = json.loads(res.text)
 
-    f = open(SearchKeyword + "_Search.json", "w", encoding='UTF-8')
+    f = open(SearchKeyword + "_Search"+ Video_Type +".json", "w", encoding='UTF-8')
     f.write(res.text)
     f.close()
 
@@ -46,8 +46,8 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword):  # 搜尋頁面的�
     return video_info  # 回傳字典
 
 
-def Write_Video_Info(Result, Video_Num, SearchKeyword):  # 寫入TXT
-    f = open(SearchKeyword + "_Search.txt", "w", encoding='UTF-8')
+def Write_Video_Info(Result, Video_Num, SearchKeyword,Video_Type):  # 寫入TXT
+    f = open(SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
     for i in range(Video_Num):
         f.write("Title : " + Result["Video_Title (" + str(i + 1) + ")"] + "\n")
         f.write("VideoID : " + Result["Video_ID (" + str(i + 1) + ")"] + "\n")
@@ -68,6 +68,6 @@ if __name__ == '__main__':
     SearchVideo_Path = ('https://www.youtube.com/results?search_query=' + SearchKeyword)  # 搜尋頁面連結
 
     Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword)  # 抓取搜尋頁面資料
-    Write_Video_Info(Result, int(Video_Num), SearchKeyword)  # 寫入txt檔
+    Write_Video_Info(Result, int(Video_Num), SearchKeyword, Video_Type)  # 寫入txt檔
 
     Download_video(Result, int(Video_Num), Video_Type)
