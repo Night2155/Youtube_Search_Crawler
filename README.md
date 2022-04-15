@@ -2,7 +2,7 @@
 MP4 跟 音檔的format code
 
 [youtube] 7E-cwdnsiow: Downloading webpage
-[info] Available formats for 7E-cwdnsiow:
+[info] Available formats for 7E-cwdnsiow: 
 format code  extension  resolution note
 249          webm       audio only tiny   51k , opus @ 50k (48000Hz), 2.56MiB
 250          webm       audio only tiny   68k , opus @ 70k (48000Hz), 3.23MiB
