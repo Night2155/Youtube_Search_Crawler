@@ -1,5 +1,4 @@
-# Youtube_Search_Crawler
-專題 -- YouTube 網路爬蟲
+
 MP4 跟 音檔的format code
 
 [youtube] 7E-cwdnsiow: Downloading webpage
