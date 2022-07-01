@@ -23,9 +23,17 @@ ydl_opts1 = {
     'ffmpeg_location': 'C:\\Users\\09765\\anaconda3\\envs\\pythonProject\\Scripts'
 }
 
+ydl_opts_mp3 = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+}
 
 # with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 #     ydl.download(['https://youtu.be/jqXjh9UFnqM'])
 
-with yt_dlp.YoutubeDL(ydl_opts1) as ydl:
-    ydl.download(['https://youtu.be/9kqQC0pFNqE'])
+with yt_dlp.YoutubeDL(ydl_opts_mp3) as ydl:
+    ydl.download(['https://www.youtube.com/watch?v=wWgekWbLE0Y'])
