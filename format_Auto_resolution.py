@@ -1,13 +1,10 @@
-#import youtube_dl
 import requests
-import re
-from bs4 import BeautifulSoup
 import json
 import yt_dlp
 
 def Download_video(Result, Video_Num, Video_Type):
-    path = f'D:/阿滴/{Video_Type}/'  # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
-                                    # {Video_Type} 不用動 這是MP4或WAV 所以不用更動
+    path = f'E:/audio save/{Video_Type}/'   # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
+                                            # {Video_Type} 不用動 這是MP4或WAV 所以不用更動
     if Video_Type == "wav":
         for i in range(Video_Num):
             youtube_url = "https://www.youtube.com/watch?v=" + Result["Video_ID (" + str(i + 1) + ")"] + "&ab_channel=" + \
@@ -34,10 +31,10 @@ def Download_video(Result, Video_Num, Video_Type):
             youtube_url = "https://www.youtube.com/watch?v=" + Result["Video_ID (" + str(i + 1) + ")"] + "&ab_channel=" + \
                           Result["Channel_ID (" + str(i + 1) + ")"]
             ydl_opts1 = {
-                'format': '137+140',
+                'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best',
                 'outtmpl': f'{path}%(title)s.%(ext)s',
                 'prefer_ffmpeg': True,
-                'ffmpeg_location': 'C:\\Users\\09765\\anaconda3\\envs\\pythonProject\\Scripts'
+                'ffmpeg_location': 'C:\\Users\\09765\\anaconda3\\envs\\pythonProject\\Scripts'  # 這裡要改 你的ffmpeg.exe的位置
             }
             with yt_dlp.YoutubeDL(ydl_opts1) as ydl:
                 ydl.extract_info(youtube_url, download=True)
@@ -45,13 +42,13 @@ def Download_video(Result, Video_Num, Video_Type):
 
 def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜尋頁面的影片標題、影片ID、頻道ID
     Search_path = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + SearchKeyword + \
-                  "&key=" + YT_Data_API+ "&type=video&maxResults=" + str(Video_Num)
+                  "&key=" + YT_Data_API + "&type=video&maxResults=" + str(Video_Num)
 
     video_info = {}  # 存放資訊到字典
     res = requests.get(url=Search_path)
     data_json = json.loads(res.text)
 
-    f = open(SearchKeyword + "_Search"+ Video_Type +".json", "w", encoding='UTF-8')
+    f = open("E:/audio save/" + SearchKeyword + "_Search" + Video_Type + ".json", "w", encoding='UTF-8')
     f.write(res.text)
     f.close()
 
@@ -68,8 +65,8 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜�
     return video_info  # 回傳字典
 
 
-def Write_Video_Info(Result, Video_Num, SearchKeyword,Video_Type):  # 寫入TXT
-    f = open(SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
+def Write_Video_Info(Result, Video_Num, SearchKeyword, Video_Type):  # 寫入TXT
+    f = open("E:/audio save/" + SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
     for i in range(Video_Num):
         f.write("Title : " + Result["Video_Title (" + str(i + 1) + ")"] + "\n")
         f.write("VideoID : " + Result["Video_ID (" + str(i + 1) + ")"] + "\n")
@@ -89,7 +86,17 @@ if __name__ == '__main__':
     YT_Data_API = 'AIzaSyAu5spE0yqJOO4fyUcM6MEwWzS2mbazlSA'  # Youtube_Data_API
     SearchVideo_Path = ('https://www.youtube.com/results?search_query=' + SearchKeyword)  # 搜尋頁面連結
 
-    Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword,Video_Type)  # 抓取搜尋頁面資料
+    Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword, Video_Type)  # 抓取搜尋頁面資料
     Write_Video_Info(Result, int(Video_Num), SearchKeyword, Video_Type)  # 寫入txt檔
     Download_video(Result, int(Video_Num), Video_Type)  # 下載函式 for MP4
     Download_video(Result, int(Video_Num), Video_Type2)  # 下載函式 for WAV
+
+
+
+
+
+
+
+
+
+
