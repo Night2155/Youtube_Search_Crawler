@@ -3,7 +3,7 @@ import json
 import yt_dlp
 
 def Download_video(Result, Video_Num, Video_Type):
-    path = f'E:/audio save/{Video_Type}/'   # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
+    path = f'D:/audio save/{Video_Type}/'   # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
                                             # {Video_Type} 不用動 這是MP4或WAV 所以不用更動
     if Video_Type == "wav":
         for i in range(Video_Num):
@@ -48,7 +48,7 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜�
     res = requests.get(url=Search_path)
     data_json = json.loads(res.text)
 
-    f = open("E:/audio save/" + SearchKeyword + "_Search" + Video_Type + ".json", "w", encoding='UTF-8')
+    f = open("D:/audio save/" + SearchKeyword + "_Search" + Video_Type + ".json", "w", encoding='UTF-8')
     f.write(res.text)
     f.close()
 
@@ -66,7 +66,7 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜�
 
 
 def Write_Video_Info(Result, Video_Num, SearchKeyword, Video_Type):  # 寫入TXT
-    f = open("E:/audio save/" + SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
+    f = open("D:/audio save/" + SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
     for i in range(Video_Num):
         f.write("Title : " + Result["Video_Title (" + str(i + 1) + ")"] + "\n")
         f.write("VideoID : " + Result["Video_ID (" + str(i + 1) + ")"] + "\n")

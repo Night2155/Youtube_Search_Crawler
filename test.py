@@ -1,8 +1,13 @@
 from __future__ import unicode_literals
 import yt_dlp
-path = "D:/"
 
-ydl_opts = {
+# path 改成你的下載路徑
+path = "D:/"
+# url 改成 你要下載的一部影片
+url = "https://youtu.be/VntNTZ367Zw"
+
+def video_format_wav(url):
+    ydl_opts_wav = {
     'format': 'bestaudio/best',
     'outtmpl': f'{path}%(title)s.%(ext)s',
     'postprocessors': [{
@@ -14,26 +19,35 @@ ydl_opts = {
         '-ar', '16000'
     ],
     'prefer_ffmpeg': True,
-}
+    }
+    with yt_dlp.YoutubeDL(ydl_opts_wav) as ydl:
+        ydl.download([url])
 
-ydl_opts1 = {
-    'format': '137+140',
-    'outtmpl': f'{path}%(title)s.%(ext)s',
-    'prefer_ffmpeg': True,
-    'ffmpeg_location': 'C:\\Users\\09765\\anaconda3\\envs\\pythonProject\\Scripts'
-}
+def video_format_mp4(url):
+    ydl_opts_mp4 = {
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best',
+        'outtmpl': f'{path}%(title)s.%(ext)s',
+        'prefer_ffmpeg': True,
+        'ffmpeg_location': 'C:\\Users\\09765\\anaconda3\\envs\\pythonProject\\Scripts'  # 這裡要改 你的ffmpeg.exe的位置
+    }
+    with yt_dlp.YoutubeDL(ydl_opts_mp4) as ydl:
+        ydl.download([url])
 
-ydl_opts_mp3 = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-}
+if __name__=="__main__":
+    video_format_wav(url)
+    video_format_mp4(url)
+
+# ydl_opts_mp3 = {
+#     'format': 'bestaudio/best',
+#     'postprocessors': [{
+#         'key': 'FFmpegExtractAudio',
+#         'preferredcodec': 'mp3',
+#         'preferredquality': '192',
+#     }],
+# }
 
 # with yt_dlp.YoutubeDL(ydl_opts) as ydl:
 #     ydl.download(['https://youtu.be/jqXjh9UFnqM'])
 
-with yt_dlp.YoutubeDL(ydl_opts_mp3) as ydl:
-    ydl.download(['https://www.youtube.com/watch?v=wWgekWbLE0Y'])
+
+
