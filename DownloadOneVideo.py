@@ -2,9 +2,9 @@ from __future__ import unicode_literals
 import yt_dlp
 
 # path 改成你的下載路徑
-path = "D:/"
+path = "F:\\"
 # url 改成 你要下載的一部影片
-url = "https://youtu.be/VntNTZ367Zw"
+url = "https://www.youtube.com/watch?v=Ma3NRsq4nzE"
 
 def video_format_wav(url):
     ydl_opts_wav = {
@@ -33,21 +33,25 @@ def video_format_mp4(url):
     with yt_dlp.YoutubeDL(ydl_opts_mp4) as ydl:
         ydl.download([url])
 
+def video_format_mp3(url):
+    ydl_opts_mp3 = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts_mp3) as ydl:
+        ydl.download([url])
+
 if __name__=="__main__":
     video_format_wav(url)
-    video_format_mp4(url)
+    #video_format_mp3(url)
+    #video_format_mp4(url)
 
-# ydl_opts_mp3 = {
-#     'format': 'bestaudio/best',
-#     'postprocessors': [{
-#         'key': 'FFmpegExtractAudio',
-#         'preferredcodec': 'mp3',
-#         'preferredquality': '192',
-#     }],
-# }
 
-# with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-#     ydl.download(['https://youtu.be/jqXjh9UFnqM'])
 
 
 
