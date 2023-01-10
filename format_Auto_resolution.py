@@ -1,9 +1,10 @@
 import requests
 import json
 import yt_dlp
+from Video_data_txt_to_csv import read_all_file
 
 def Download_video(Result, Video_Num, Video_Type):
-    path = f'D:/audio save/{Video_Type}/'   # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
+    path = f'G:/audio_save/{Video_Type}/'   # 存放檔案路徑 範例 : 主目錄:/資料夾1/資料夾2/{Video_Type}
                                             # {Video_Type} 不用動 這是MP4或WAV 所以不用更動
     if Video_Type == "wav":
         for i in range(Video_Num):
@@ -47,8 +48,8 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜�
     video_info = {}  # 存放資訊到字典
     res = requests.get(url=Search_path)
     data_json = json.loads(res.text)
-
-    f = open("D:/audio save/" + SearchKeyword + "_Search" + Video_Type + ".json", "w", encoding='UTF-8')
+    # 這裡改成你的路徑
+    f = open("G:/audio_save/" + SearchKeyword + "_Search" + Video_Type + ".json", "w", encoding='UTF-8')
     f.write(res.text)
     f.close()
 
@@ -66,7 +67,7 @@ def Search_Video_Id(YT_Data_API, Video_Num, SearchKeyword, Video_Type):  # 搜�
 
 
 def Write_Video_Info(Result, Video_Num, SearchKeyword, Video_Type):  # 寫入TXT
-    f = open("D:/audio save/" + SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
+    f = open("G:/audio_save/" + SearchKeyword + "_Search"+Video_Type+".txt", "w", encoding='UTF-8')
     for i in range(Video_Num):
         f.write("Title : " + Result["Video_Title (" + str(i + 1) + ")"] + "\n")
         f.write("VideoID : " + Result["Video_ID (" + str(i + 1) + ")"] + "\n")
@@ -82,15 +83,15 @@ if __name__ == '__main__':
     Video_Num = input()  # 影片數量
     Video_Type = 'mp4'  # 檔案類型
     Video_Type2 = 'wav'
-
+    file_path = "G:/audio_save/" # 文字檔存放處
     YT_Data_API = 'AIzaSyAu5spE0yqJOO4fyUcM6MEwWzS2mbazlSA'  # Youtube_Data_API
     SearchVideo_Path = ('https://www.youtube.com/results?search_query=' + SearchKeyword)  # 搜尋頁面連結
 
     Result = Search_Video_Id(YT_Data_API, int(Video_Num), SearchKeyword, Video_Type)  # 抓取搜尋頁面資料
     Write_Video_Info(Result, int(Video_Num), SearchKeyword, Video_Type)  # 寫入txt檔
-    Download_video(Result, int(Video_Num), Video_Type)  # 下載函式 for MP4
-    Download_video(Result, int(Video_Num), Video_Type2)  # 下載函式 for WAV
-
+    # Download_video(Result, int(Video_Num), Video_Type)  # 下載函式 for MP4
+    # Download_video(Result, int(Video_Num), Video_Type2)  # 下載函式 for WAV
+    read_all_file(file_path)
 
 
 
