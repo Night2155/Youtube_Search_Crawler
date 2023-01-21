@@ -13,7 +13,7 @@ def read_all_file(directory: str):
             csvname = Path(filename).stem
             csvwriter = open(directory+csvname+".csv",
                              "w", encoding="UTF-8-sig")
-            csvwriter.write("Video_Title,VideoID,ChannelID,PublishTime,url,keyword,img\n")
+            csvwriter.write("Video_Title,VideoID,ChannelID\n")
 
             for row in filereader:
                 row_number += 1
@@ -25,19 +25,7 @@ def read_all_file(directory: str):
                         text_line = re.split("VideoID : ", row)
                         file_text += text_line[-1].replace("\n", ",")
                     if row_number == 3:
-                        text_line = re.split("channelTitle : ", row)
-                        file_text += text_line[-1].replace("\n", ",")
-                    if row_number == 4:
-                        text_line = re.split("publishTime : ", row)
-                        file_text += text_line[-1].replace("\n", ",")
-                    if row_number == 5:
-                        text_line = re.split("url : ", row)
-                        file_text += text_line[-1].replace("\n", ",")
-                    if row_number == 6:
-                        text_line = re.split("keyword : ", row)
-                        file_text += text_line[-1].replace("\n", ",")
-                    if row_number == 7:
-                        text_line = re.split("img : ", row)
+                        text_line = re.split("ChannelID : ", row)
                         file_text += text_line[-1].replace("\n", "")
                 if row == "\n":
                     csvwriter.write(file_text+"\n")

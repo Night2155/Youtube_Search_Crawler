@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 import yt_dlp
 # 下載的影片僅供教學用途 並無用於商業之用途
 
